@@ -12,7 +12,7 @@ const NotFoundPage = () => (
     <h1 className="h4 text-muted">Страница не найдена</h1>
     <p className="text-muted">
       Но вы можете перейти
-      <Link to={routes.homePagePath()}>на главную страницу</Link>
+      <Link to={routes.mainPagePath()}>на главную страницу</Link>
     </p>
   </div>
 );
