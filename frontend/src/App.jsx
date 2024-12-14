@@ -5,15 +5,19 @@ import routes from './utils/routes';
 import NotFoundPage from './pages/NotFoundPage';
 import MainLayout from './components/MainLayout';
 import LoginPage from './pages/LoginPage';
+import AuthProvider from './contexts/AuthProvider';
 
 const App = () => (
   <BrowserRouter>
-    <MainLayout>
-      <Routes>
-        <Route path={routes.homePagePath()} element={<LoginPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </MainLayout>
+    <AuthProvider>
+      <MainLayout>
+        <Routes>
+          <Route path={routes.mainPagePath()} element={<LoginPage />} />
+          <Route path={routes.loginPagePath()} element={<LoginPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </MainLayout>
+    </AuthProvider>
   </BrowserRouter>
 );
 
