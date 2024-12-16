@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import notFoundImage from '../assets/notFoundImage.png';
 import routes from '../utils/routes.js';
-import Image from '../components/Image.jsx';
+import Image from '../components/Pages/Image.jsx';
 
 const NotFoundPage = () => (
   <div className="text-center">

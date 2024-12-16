@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import Container from '../components/Container';
-import Image from '../components/Image';
+import Container from '../components/Pages/Container';
+import Image from '../components/Pages/Image';
 import loginImage from '../assets/loginImage.png';
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../components/Pages/LoginForm';
 import routes from '../utils/routes';
 
 const LoginPage = () => (
