@@ -9,7 +9,7 @@ const ChatPage = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!loggedIn) {
-      navigate(routes.loginApiPath());
+      navigate(routes.loginPagePath());
     }
   }, []);
 
