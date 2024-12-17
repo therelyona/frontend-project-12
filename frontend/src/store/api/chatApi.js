@@ -16,7 +16,21 @@ export const chatApi = createApi({
     getChannels: builder.query({
       query: () => 'channels',
     }),
+    getMessages: builder.query({
+      query: () => 'messages',
+    }),
+    addMessages: builder.mutation({
+      query: (newMessage) => ({
+        url: 'messages',
+        method: 'POST',
+        body: newMessage,
+      }),
+    }),
   }),
 });
 
-export const { useGetChannelsQuery } = chatApi;
+export const {
+  useGetChannelsQuery,
+  useGetMessagesQuery,
+  useAddMessagesMutation,
+} = chatApi;
