@@ -11,7 +11,7 @@ import MessagesForm from './MessagesForm';
 const MessagesContainer = () => {
   const activeChannel = useSelector(activeChannelSelector);
   const { activeChannelId, activeChannelName } = useActiveChannel(activeChannel);
-  const { data: messages, isLoading } = useGetMessagesQuery;
+  const { data: messages, isLoading } = useGetMessagesQuery();
   const [addMessage] = useAddMessagesMutation();
   const channelMessages = messages?.filter((message) => message.channelId === activeChannelId);
   const countMessages = channelMessages?.length || 0;
