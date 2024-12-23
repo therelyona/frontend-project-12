@@ -1,5 +1,5 @@
-const ChannelButtonAdd = () => (
-  <button type="button" className="p-0 text-primary btn btn-group-vertical">
+const ChannelButtonAdd = ({ openModal }) => (
+  <button type="button" className="p-0 text-primary btn btn-group-vertical" onClick={() => openModal('adding')}>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 16 16"
