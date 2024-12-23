@@ -1,13 +1,14 @@
-import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import useAuth from '../../hooks/useAuth';
 import routes from '../../utils/routes';
+import { useLoginMutation } from '../../store/api/chatApi';
 
 const LoginForm = () => {
   const [authFailed, setAuthFailed] = useState(false);
+  const [login] = useLoginMutation();
   const auth = useAuth();
   const navigate = useNavigate();
   const inputRef = useRef();
@@ -25,17 +26,15 @@ const LoginForm = () => {
       setAuthFailed(false);
 
       try {
-        const res = await axios.post(routes.loginApiPath(), values);
-        auth.logIn(res.data.token, values.username);
+        const res = await login(values).unwrap();
+        auth.logIn(res.token, values.username);
         navigate(routes.mainPagePath());
       } catch (err) {
         formik.setSubmitting(false);
-        if (err.isAxiosError && err.response.status === 401) {
+        if (err.status === 401) {
           setAuthFailed(true);
           inputRef.current.select();
-          return;
         }
-        throw err;
       }
     },
   });
