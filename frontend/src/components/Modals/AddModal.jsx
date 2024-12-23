@@ -3,7 +3,7 @@ import { useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import { useAddChannelMutation, useGetChannelsQuery } from '../../store/api/chatApi';
-import channelNamesShema from '../../utils/validate';
+import { channelNamesShema } from '../../utils/validate';
 import { setActiveChannel } from '../../store/slices/activeChannelSlice';
 
 const AddModal = ({ closeModal }) => {
