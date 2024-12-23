@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage';
 import AuthProvider from './contexts/AuthProvider';
 import store from './store/store';
 import ChatPage from './pages/ChatPage';
+import SignUpPage from './pages/SignUpPage';
 
 const App = () => (
   <BrowserRouter>
@@ -17,6 +18,7 @@ const App = () => (
           <Routes>
             <Route path={routes.mainPagePath()} element={<ChatPage />} />
             <Route path={routes.loginPagePath()} element={<LoginPage />} />
+            <Route path={routes.signUpPagePath()} element={<SignUpPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </MainLayout>
