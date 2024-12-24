@@ -4,13 +4,13 @@ import { useFormik } from 'formik';
 import MessageButtonInput from './MessageButtonInput';
 
 const MessagesForm = ({
-  channelId, addMessage, username, isLoading,
+  channelId, addMessage, username, isLoading, t,
 }) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
     inputRef.current.focus();
-  }, []);
+  }, [channelId]);
 
   const formik = useFormik({
     initialValues: {
@@ -21,6 +21,7 @@ const MessagesForm = ({
         const newMessage = { body, channelId, username };
         await addMessage(newMessage);
         setFieldValue('body', '');
+        inputRef.current.focus();
       } catch (error) {
         console.log(error);
       }
@@ -37,8 +38,8 @@ const MessagesForm = ({
           required
           id="body"
           name="body"
-          aria-label="Новое сообщение"
-          placeholder="Введите сообщение..."
+          aria-label={t('messagasForm.label')}
+          placeholder={t('messagasForm.placeholder')}
           wfd-id="id0"
           className="border-0 p-0 ps-2 form-control"
           value={formik.values.body}
@@ -51,7 +52,7 @@ const MessagesForm = ({
           disabled={isLoading}
         >
           <MessageButtonInput />
-          <span className="visually-hidden">Отправить</span>
+          <span className="visually-hidden">{t('messagasForm.submitButton')}</span>
         </button>
       </div>
     </Form>

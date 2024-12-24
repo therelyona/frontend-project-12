@@ -2,11 +2,13 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import { useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { useAddChannelMutation, useGetChannelsQuery } from '../../store/api/chatApi';
 import { channelNamesShema } from '../../utils/validate';
 import { setActiveChannel } from '../../store/slices/activeChannelSlice';
 
 const AddModal = ({ closeModal }) => {
+  const { t } = useTranslation();
   const [addChannel] = useAddChannelMutation();
   const { data: channels } = useGetChannelsQuery();
   const channelNames = channels?.map((channel) => channel.name);
@@ -16,7 +18,7 @@ const AddModal = ({ closeModal }) => {
     initialValues: {
       name: '',
     },
-    validationSchema: channelNamesShema(channelNames),
+    validationSchema: channelNamesShema(channelNames, t),
     onSubmit: async ({ name }) => {
       try {
         const newChannel = await addChannel({ name });
@@ -36,7 +38,7 @@ const AddModal = ({ closeModal }) => {
   return (
     <Modal show="true" onHide={closeModal} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>{t('modal.add.title')}</Modal.Title>
       </Modal.Header>
       <Form onSubmit={formik.handleSubmit}>
         <Modal.Body>
@@ -54,7 +56,7 @@ const AddModal = ({ closeModal }) => {
               className="visually-hidden"
               htmlFor="name"
             >
-              Имя канала
+              {t('modal.label')}
             </Form.Label>
             {formik.touched.name && formik.errors.name && (
               <Form.Control.Feedback type="invalid">
@@ -68,10 +70,10 @@ const AddModal = ({ closeModal }) => {
                 className="me-2"
                 onClick={closeModal}
               >
-                Отменить
+                {t('modal.add.closeButton')}
               </Button>
               <Button variant="primary" type="submit">
-                Отправить
+                {t('modal.add.submitButton')}
               </Button>
             </div>
           </Form.Group>

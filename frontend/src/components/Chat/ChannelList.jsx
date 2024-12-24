@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import useActiveChannel from '../../hooks/useActiveChannel';
 import { activeChannelSelector } from '../../store/slices/activeChannelSlice';
 import ChannelTitle from './ChannelTitle';
@@ -8,12 +9,13 @@ import DropdownButton from './DropdownButton';
 import { openModal, closeModal } from '../../store/slices/modalSlice';
 import getModal from '../Modals/index';
 
-const renderChannels = (channel, isRemovableChannel, handleOpenModal) => (
+const renderChannels = (channel, isRemovableChannel, handleOpenModal, t) => (
   <li className="nav-item w-100" key={channel.id}>
     {isRemovableChannel(channel) ? (
       <DropdownButton
         openModal={handleOpenModal}
         channel={channel}
+        t={t}
       />
     ) : (
       <ChannelItem channel={channel} />
@@ -31,6 +33,7 @@ const renderModal = (type, close, channel) => {
 };
 
 const ChannelList = () => {
+  const { t } = useTranslation();
   const activeChannel = useSelector(activeChannelSelector);
   const { channels, isLoading } = useActiveChannel(activeChannel);
   const modalType = useSelector((state) => state.modal.modalType);
@@ -43,14 +46,15 @@ const ChannelList = () => {
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
       <ChannelTitle
         openModal={handleOpenModal}
+        t={t}
       />
       <ul
         id="channels-box"
         className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block"
       >
-        {isLoading && <Loading />}
+        {isLoading && <Loading t={t} />}
         {channels?.map((channel) => (
-          renderChannels(channel, isRemovableChannel, handleOpenModal)
+          renderChannels(channel, isRemovableChannel, handleOpenModal, t)
         ))}
       </ul>
       {renderModal(modalType, handleCloseModal)}

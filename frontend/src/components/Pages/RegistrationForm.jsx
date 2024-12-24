@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { Button, Form } from 'react-bootstrap';
 import useAuth from '../../hooks/useAuth';
 import routes from '../../utils/routes';
@@ -8,6 +9,7 @@ import { useSignUpMutation } from '../../store/api/chatApi';
 import { signUpShema } from '../../utils/validate';
 
 const RegistrationForm = () => {
+  const { t } = useTranslation();
   const [registerFailed, setRegisterFailed] = useState(false);
   const [signUp] = useSignUpMutation();
   const auth = useAuth();
@@ -24,7 +26,7 @@ const RegistrationForm = () => {
       password: '',
       confirmPassword: '',
     },
-    validationSchema: signUpShema(),
+    validationSchema: signUpShema(t),
     onSubmit: async (values) => {
       setRegisterFailed(false);
       const trimmedValues = {
@@ -53,10 +55,10 @@ const RegistrationForm = () => {
 
   return (
     <Form onSubmit={formik.handleSubmit} className="w-50">
-      <h1 className="text-center mb-4">Регистрация</h1>
+      <h1 className="text-center mb-4">{t('registrationForm.title')}</h1>
       <Form.Group className="form-floating mb-3">
         <Form.Control
-          placeholder="От 3 до 20 символов"
+          placeholder={t('registrationForm.username')}
           name="username"
           autoComplete="username"
           id="username"
@@ -66,14 +68,14 @@ const RegistrationForm = () => {
           value={formik.values.username}
           onChange={formik.handleChange}
         />
-        <Form.Label htmlFor="username">Имя пользователя</Form.Label>
+        <Form.Label htmlFor="username">{t('registrationForm.username')}</Form.Label>
         <Form.Control.Feedback type="invalid" tooltip>
-          {registerFailed ? 'Такой пользователь уже существует' : formik.errors.username}
+          {registerFailed ? t('registrationForm.errors.usernameExist') : formik.errors.username}
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group className="form-floating mb-3">
         <Form.Control
-          placeholder="Не менее 6 символов"
+          placeholder={t('registrationForm.password')}
           name="password"
           autoComplete="new-password"
           type="password"
@@ -84,14 +86,14 @@ const RegistrationForm = () => {
           value={formik.values.password}
           onChange={formik.handleChange}
         />
-        <Form.Label htmlFor="username">Пароль</Form.Label>
+        <Form.Label htmlFor="username">{t('registrationForm.password')}</Form.Label>
         <Form.Control.Feedback type="invalid" tooltip>
           {formik.errors.password}
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group className="form-floating mb-4">
         <Form.Control
-          placeholder="Пароли должны совпадать"
+          placeholder={t('registrationForm.confirmPassword')}
           name="confirmPassword"
           autoComplete="new-password"
           type="password"
@@ -102,13 +104,13 @@ const RegistrationForm = () => {
           value={formik.values.confirmPassword}
           onChange={formik.handleChange}
         />
-        <Form.Label htmlFor="confirmPassword">Подтвердите пароль</Form.Label>
+        <Form.Label htmlFor="confirmPassword">{t('registrationForm.confirmPassword')}</Form.Label>
         <Form.Control.Feedback type="invalid" tooltip>
           {formik.errors.confirmPassword}
         </Form.Control.Feedback>
       </Form.Group>
       <Button type="submit" className="w-100" variant="outline-primary">
-        Зарегистрироваться
+        {t('registrationForm.submitButton')}
       </Button>
     </Form>
   );

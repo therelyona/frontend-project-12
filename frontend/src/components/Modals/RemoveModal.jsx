@@ -1,8 +1,10 @@
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { useRemoveChannelMutation } from '../../store/api/chatApi';
 
 const RemoveModal = ({ closeModal }) => {
+  const { t } = useTranslation();
   const [removeChannel] = useRemoveChannelMutation();
   const channel = useSelector((state) => state.modal.channel);
   const handleRemove = async (currentChannel) => {
@@ -17,24 +19,24 @@ const RemoveModal = ({ closeModal }) => {
   return (
     <Modal show="true" onHide={closeModal} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Удалить канал</Modal.Title>
+        <Modal.Title>{t('modal.remove.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p className="lead">Уверены?</p>
+        <p className="lead">{t('modal.remove.question')}</p>
         <Form.Group className="d-flex justify-content-end">
           <Button
             type="button"
             className="me-2 btn btn-secondary"
             onClick={closeModal}
           >
-            Отменить
+            {t('modal.remove.closeButton')}
           </Button>
           <Button
             type="button"
             className="btn btn-danger"
             onClick={() => handleRemove(channel)}
           >
-            Удалить
+            {t('modal.remove.removeButton')}
           </Button>
         </Form.Group>
       </Modal.Body>

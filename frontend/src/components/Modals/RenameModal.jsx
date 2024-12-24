@@ -1,11 +1,13 @@
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { useRenameChannelMutation, useGetChannelsQuery } from '../../store/api/chatApi';
 import { channelNamesShema } from '../../utils/validate';
 
 const RenameModal = ({ closeModal }) => {
+  const { t } = useTranslation();
   const channel = useSelector((state) => state.modal.channel);
   const { data: channels } = useGetChannelsQuery();
   const [renameChannel] = useRenameChannelMutation();
@@ -20,7 +22,7 @@ const RenameModal = ({ closeModal }) => {
     initialValues: {
       name: channel.name,
     },
-    validationSchema: channelNamesShema(channelNames),
+    validationSchema: channelNamesShema(channelNames, t),
     onSubmit: async ({ name }) => {
       const updatedChannel = {
         id: channel.id,
@@ -38,7 +40,7 @@ const RenameModal = ({ closeModal }) => {
   return (
     <Modal show="true" onHide={closeModal} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>{t('modal.rename.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
@@ -53,7 +55,7 @@ const RenameModal = ({ closeModal }) => {
               onChange={formik.handleChange}
             />
             <Form.Label className="visually-hidden" htmlFor="name">
-              Имя канала
+              {t('modal.label')}
             </Form.Label>
             {formik.touched.name && formik.errors.name && (
               <Form.Control.Feedback type="invalid">
@@ -67,14 +69,13 @@ const RenameModal = ({ closeModal }) => {
                 className="me-2"
                 onClick={closeModal}
               >
-                Отменить
+                {t('modal.rename.closeButton')}
               </Button>
               <Button
                 type="submit"
                 variant="primary"
-                className="me-2"
               >
-                Отправить
+                {t('modal.rename.submitButton')}
               </Button>
             </div>
           </Form.Group>

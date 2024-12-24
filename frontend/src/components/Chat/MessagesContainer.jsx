@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { activeChannelSelector } from '../../store/slices/activeChannelSlice';
 import useActiveChannel from '../../hooks/useActiveChannel';
 import {
@@ -9,6 +10,7 @@ import MessagesBox from './MessagesBox';
 import MessagesForm from './MessagesForm';
 
 const MessagesContainer = () => {
+  const { t } = useTranslation();
   const activeChannel = useSelector(activeChannelSelector);
   const { activeChannelId, activeChannelName } = useActiveChannel(activeChannel);
   const { data: messages, isLoading } = useGetMessagesQuery();
@@ -24,7 +26,7 @@ const MessagesContainer = () => {
           <p className="m-0">
             <b>{`# ${activeChannelName}`}</b>
           </p>
-          <span className="text-muted">{`${countMessages} сообщений`}</span>
+          <span className="text-muted">{t('messagesContainer.messages', { count: countMessages })}</span>
         </div>
         <MessagesBox channelMessages={channelMessages} />
         <div className="mt-auto px-5 py-3">
@@ -33,6 +35,7 @@ const MessagesContainer = () => {
             username={username}
             addMessage={addMessage}
             isLoading={isLoading}
+            t={t}
           />
         </div>
       </div>
