@@ -2,6 +2,7 @@ import { Form } from 'react-bootstrap';
 import { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
+import filter from 'leo-profanity';
 import MessageButtonInput from './MessageButtonInput';
 
 const MessagesForm = ({
@@ -17,9 +18,10 @@ const MessagesForm = ({
     initialValues: {
       body: '',
     },
-    onSubmit: async (body, { setFieldValue }) => {
+    onSubmit: async ({ body }, { setFieldValue }) => {
       try {
-        const newMessage = { body, channelId, username };
+        const filteredBody = filter.clean(body);
+        const newMessage = { body: filteredBody, channelId, username };
         await addMessage(newMessage);
         setFieldValue('body', '');
         inputRef.current.focus();
