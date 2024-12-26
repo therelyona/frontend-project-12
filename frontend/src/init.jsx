@@ -1,9 +1,13 @@
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import resources from './locales/index';
+import filter from 'leo-profanity';
 import App from './App';
 
 const init = () => {
+  filter.add(filter.getDictionary('en'));
+  filter.add(filter.getDictionary('ru'));
+
   const i18n = i18next.createInstance();
   const options = {
     resources,
