@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import filter from 'leo-profanity';
 import { useFormik } from 'formik';
 import { useRenameChannelMutation, useGetChannelsQuery } from '../../store/api/chatApi';
 import { channelNamesShema } from '../../utils/validate';
@@ -25,9 +26,10 @@ const RenameModal = ({ closeModal }) => {
     },
     validationSchema: channelNamesShema(channelNames, t),
     onSubmit: async ({ name }) => {
+      const filteredName = filter.clean(name);
       const updatedChannel = {
         id: channel.id,
-        name,
+        name: filteredName,
       };
       try {
         await renameChannel(updatedChannel);

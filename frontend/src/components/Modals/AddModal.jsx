@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import filter from 'leo-profanity';
 import { useAddChannelMutation, useGetChannelsQuery } from '../../store/api/chatApi';
 import { channelNamesShema } from '../../utils/validate';
 import { setActiveChannel } from '../../store/slices/activeChannelSlice';
@@ -22,7 +23,8 @@ const AddModal = ({ closeModal }) => {
     validationSchema: channelNamesShema(channelNames, t),
     onSubmit: async ({ name }) => {
       try {
-        const newChannel = await addChannel({ name });
+        const filteredName = filter.clean(name)
+        const newChannel = await addChannel({ name: filteredName });
         dispatch(setActiveChannel(newChannel.data));
         toast.success(t('toastify.success.add'));
         closeModal();
