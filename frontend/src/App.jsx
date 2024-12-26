@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ToastContainer, Bounce } from 'react-toastify';
 import routes from './utils/routes';
 import NotFoundPage from './pages/NotFoundPage';
 import MainLayout from './components/Pages/MainLayout';
@@ -12,6 +13,19 @@ import SignUpPage from './pages/SignUpPage';
 
 const App = () => (
   <BrowserRouter>
+    <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick={false}
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      transition={Bounce}
+    />
     <Provider store={store}>
       <AuthProvider>
         <MainLayout>
