@@ -3,6 +3,7 @@ import { useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { useAddChannelMutation, useGetChannelsQuery } from '../../store/api/chatApi';
 import { channelNamesShema } from '../../utils/validate';
 import { setActiveChannel } from '../../store/slices/activeChannelSlice';
@@ -23,9 +24,15 @@ const AddModal = ({ closeModal }) => {
       try {
         const newChannel = await addChannel({ name });
         dispatch(setActiveChannel(newChannel.data));
+        toast.success(t('toastify.success.add'));
         closeModal();
       } catch (error) {
         console.log(error);
+        if (error.message === 'Network Error') {
+          toast.error(t('toastify.error.connectionError'));
+        } else {
+          toast.error(t('toastify.error.error'));
+        }
       }
     },
   });

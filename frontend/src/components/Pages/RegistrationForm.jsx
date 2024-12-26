@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { Button, Form } from 'react-bootstrap';
 import useAuth from '../../hooks/useAuth';
 import routes from '../../utils/routes';
@@ -43,11 +44,16 @@ const RegistrationForm = () => {
         formik.setSubmitting(false);
         if (error.status === 401) {
           inputRef.current.select();
-          return;
+          toast.error(t('toastify.error.authError'));
         }
         if (error.status === 409) {
           inputRef.current.select();
           setRegisterFailed(true);
+        }
+        if (error.message === 'Network Error') {
+          inputRef.current.select();
+          setRegisterFailed(true);
+          toast.error(t('toastify.error.connectionError'));
         }
       }
     },

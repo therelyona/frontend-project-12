@@ -2,6 +2,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import { useRenameChannelMutation, useGetChannelsQuery } from '../../store/api/chatApi';
 import { channelNamesShema } from '../../utils/validate';
@@ -30,9 +31,15 @@ const RenameModal = ({ closeModal }) => {
       };
       try {
         await renameChannel(updatedChannel);
+        toast.success(t('toastify.success.rename'));
         closeModal();
       } catch (error) {
         console.log(error);
+        if (error.message === 'Network Error') {
+          toast.error(t('toastify.error.connectionError'));
+        } else {
+          toast.error(t('toastify.error.error'));
+        }
       }
     },
   });

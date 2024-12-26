@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { Button, Form } from 'react-bootstrap';
 import useAuth from '../../hooks/useAuth';
 import routes from '../../utils/routes';
@@ -31,11 +32,14 @@ const LoginForm = () => {
         const res = await login(values).unwrap();
         auth.logIn(res.token, values.username);
         navigate(routes.mainPagePath());
-      } catch (err) {
+      } catch (error) {
         formik.setSubmitting(false);
-        if (err.status === 401) {
+        if (error.status === 401) {
           setAuthFailed(true);
           inputRef.current.select();
+        }
+        if (error.message === 'Network Error') {
+          toast.error(t('toastify.error.connectionError'));
         }
       }
     },

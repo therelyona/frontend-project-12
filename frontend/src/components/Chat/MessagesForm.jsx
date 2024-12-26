@@ -1,6 +1,7 @@
 import { Form } from 'react-bootstrap';
 import { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
 import MessageButtonInput from './MessageButtonInput';
 
 const MessagesForm = ({
@@ -24,9 +25,15 @@ const MessagesForm = ({
         inputRef.current.focus();
       } catch (error) {
         console.log(error);
+        if (error.message === 'Network Error') {
+          toast.error(t('toastify.error.connectionError'));
+        } else {
+          toast.error(t('toastify.error.error'));
+        }
       }
     },
   });
+
   return (
     <Form
       onSubmit={formik.handleSubmit}

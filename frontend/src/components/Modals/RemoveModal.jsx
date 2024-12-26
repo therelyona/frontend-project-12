@@ -1,6 +1,7 @@
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { useRemoveChannelMutation } from '../../store/api/chatApi';
 
 const RemoveModal = ({ closeModal }) => {
@@ -10,9 +11,15 @@ const RemoveModal = ({ closeModal }) => {
   const handleRemove = async (currentChannel) => {
     try {
       await removeChannel(currentChannel);
+      toast.success(t('toastify.success.remove'));
       closeModal();
     } catch (error) {
       console.log(error);
+      if (error.message === 'Network Error') {
+        toast.error(t('toastify.error.connectionError'));
+      } else {
+        toast.error(t('toastify.error.error'));
+      }
     }
   };
 
