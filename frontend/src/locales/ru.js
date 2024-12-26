@@ -85,6 +85,18 @@ const ru = {
         required: 'Обязательное поле',
       },
     },
+    toastify: {
+      success: {
+        add: 'Канал создан',
+        rename: 'Канал переименован',
+        remove: 'Канал удалён',
+      },
+      error: {
+        error: 'Ошибка',
+        connectionError: 'Ошибка соединения',
+        authError: 'Ошибка авторизации',
+      },
+    },
   },
 };
 
