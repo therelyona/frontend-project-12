@@ -7,7 +7,7 @@ const MessagesBox = ({ channelMessages }) => (
       <div className="ext-break mb-2" key={id}>
         <b>{username}</b>
         {': '}
-        <span>{body.body}</span>
+        <span>{body}</span>
       </div>
     ))}
   </div>
