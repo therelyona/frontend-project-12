@@ -1,9 +1,41 @@
 import { io } from 'socket.io-client';
+import { toast } from 'react-toastify';
 import { chatApi } from './chatApi';
 
 const setupWebSocketListeners = (store) => {
   const { dispatch } = store;
   const socket = io();
+
+  const errorState = {
+    errorShown: false,
+    timerId: null,
+  };
+
+  const resetErrorState = () => {
+    if (errorState.timerId) {
+      clearTimeout(errorState.timerId);
+    }
+
+    errorState.timerId = setTimeout(() => {
+      errorState.errorShown = false;
+    }, 60000);
+  };
+
+  socket.on('connect_error', () => {
+    if (!errorState.errorShown) {
+      errorState.errorShown = true;
+      toast.error('Ошибка соединения');
+
+      resetErrorState();
+    }
+  });
+
+  socket.on('connect', () => {
+    if (errorState.timerId) {
+      clearTimeout(errorState.timerId);
+    }
+    errorState.errorShown = false;
+  });
 
   socket.on('newMessage', (newMessage) => {
     dispatch(chatApi.util.updateQueryData('getMessages', undefined, (draft) => {
