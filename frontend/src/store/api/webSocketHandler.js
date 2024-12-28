@@ -21,7 +21,8 @@ const setupWebSocketListeners = (store) => {
     }, 60000);
   };
 
-  socket.on('connect_error', () => {
+  socket.on('connect_error', (error) => {
+    console.error('WebSocket Connection Error:', error);
     if (!errorState.errorShown) {
       errorState.errorShown = true;
       toast.error('Ошибка соединения');
