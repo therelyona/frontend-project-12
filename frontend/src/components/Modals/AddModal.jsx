@@ -23,7 +23,7 @@ const AddModal = ({ closeModal }) => {
     validationSchema: channelNamesShema(channelNames, t),
     onSubmit: async ({ name }) => {
       try {
-        const filteredName = filter.clean(name)
+        const filteredName = filter.clean(name);
         const newChannel = await addChannel({ name: filteredName });
         dispatch(setActiveChannel(newChannel.data));
         toast.success(t('toastify.success.add'));
