@@ -27,7 +27,7 @@ const MessagesForm = ({
         inputRef.current.focus();
       } catch (error) {
         console.log(error);
-        if (error.message === 'Network Error') {
+        if (error.message?.includes('Network Error') || error.message?.includes('ERR_NAME_NOT_RESOLVED')) {
           toast.error(t('toastify.error.connectionError'));
         } else {
           toast.error(t('toastify.error.error'));
