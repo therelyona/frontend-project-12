@@ -52,7 +52,6 @@ const RegistrationForm = () => {
         }
         if (error.message === 'Network Error') {
           inputRef.current.select();
-          setRegisterFailed(true);
           toast.error(t('toastify.error.connectionError'));
         }
       }
