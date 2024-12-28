@@ -58,7 +58,7 @@ const MessagesForm = ({
         <button
           type="submit"
           className="btn btn-group-vertical"
-          disabled={isLoading}
+          disabled={!formik.values.body.trim() || isLoading}
         >
           <MessageButtonInput />
           <span className="visually-hidden">{t('messagasForm.submitButton')}</span>
