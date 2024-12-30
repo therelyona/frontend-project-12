@@ -91,7 +91,7 @@ const RegistrationForm = () => {
           value={formik.values.password}
           onChange={formik.handleChange}
         />
-        <Form.Label htmlFor="username">{t('registrationForm.password')}</Form.Label>
+        <Form.Label htmlFor="password">{t('registrationForm.password')}</Form.Label>
         <Form.Control.Feedback type="invalid" tooltip>
           {formik.errors.password}
         </Form.Control.Feedback>
