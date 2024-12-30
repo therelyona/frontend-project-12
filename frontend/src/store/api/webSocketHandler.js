@@ -57,6 +57,8 @@ const setupWebSocketListeners = (store) => {
         draft.splice(index, 1);
       }
     }));
+
+    dispatch(chatApi.util.updateQueryData('getMessages', undefined, (draft) => draft.filter((message) => message.channelId !== channel.id)));
   });
 
   socket.on('renameChannel', (channel) => {
