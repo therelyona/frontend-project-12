@@ -5,14 +5,6 @@ import resources from './locales/index';
 import filter from 'leo-profanity';
 import App from './App';
 
-const TestError = () => {
-  const a = null;
-  if (a) {
-    return a.hello();
-  }
-  return <div>Error Test</div>;
-};
-
 const init = () => {
   filter.add(filter.getDictionary('en'));
   filter.add(filter.getDictionary('ru'));
@@ -35,7 +27,6 @@ const init = () => {
   return (
     <RollbarProvider config={rollbarConfig}>
       <ErrorBoundary>
-        <TestError />
         <App />
       </ErrorBoundary>
     </RollbarProvider>
