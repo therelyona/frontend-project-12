@@ -1,8 +1,8 @@
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import resources from './locales/index';
 import filter from 'leo-profanity';
+import resources from './locales/index';
 import App from './App';
 
 const init = () => {
