@@ -1,8 +1,17 @@
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import resources from './locales/index';
 import filter from 'leo-profanity';
 import App from './App';
+
+const TestError = () => {
+  const a = null;
+  if (a) {
+    return a.hello();
+  }
+  return <div>Error Test</div>;
+};
 
 const init = () => {
   filter.add(filter.getDictionary('en'));
@@ -18,8 +27,19 @@ const init = () => {
   };
 
   i18n.use(initReactI18next).init(options);
+  const rollbarConfig = {
+    accessToken: import.meta.env.VITE_ROLLBAR_TOKEN,
+    environment: 'production',
+  };
 
-  return <App />;
+  return (
+    <RollbarProvider config={rollbarConfig}>
+      <ErrorBoundary>
+        <TestError />
+        <App />
+      </ErrorBoundary>
+    </RollbarProvider>
+  );
 };
 
 export default init;
