@@ -1,17 +1,19 @@
 import { Dropdown, ButtonGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { activeChannelSelector } from '../../store/slices/activeChannelSlice';
+import useActiveChannel from '../../hooks/useActiveChannel';
 import ChannelItem from './ChannelItem';
 
 const DropdownButton = ({ openModal, channel, t }) => {
   const activeChannel = useSelector(activeChannelSelector);
+  const { activeChannelId } = useActiveChannel(activeChannel);
 
   return (
     <Dropdown as={ButtonGroup} className="me-2 w-100">
       <ChannelItem channel={channel} />
       <Dropdown.Toggle
         split
-        variant={activeChannel.id === channel.id ? 'secondary' : ''}
+        variant={activeChannelId === channel.id ? 'secondary' : ''}
         id="channelDropdown"
       >
         <span className="visually-hidden">{t('dropdownButton.description')}</span>
