@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
+    "@rollbar/react": "^0.12.0-beta",
     "@vitejs/plugin-react": "^4.3.4",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
@@ -24,6 +25,7 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.0.2",
     "react-toastify": "^11.0.2",
+    "rollbar": "^2.26.4",
     "socket.io-client": "^4.8.1",
     "vite": "^6.0.3",
     "yup": "^1.6.1"
