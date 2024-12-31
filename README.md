@@ -1,16 +1,11 @@
-### Hexlet tests and linter status:
 [![Actions Status](https://github.com/therelyona/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/therelyona/frontend-project-12/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/2043ed5b39fd24b5f194/maintainability)](https://codeclimate.com/github/therelyona/frontend-project-12/maintainability)
 
 # 📢 Chat(Slack)
 **🌐 [Test my app](https://frontend-project-12-vht8.onrender.com)**
 
----
-
 ## About the Project
 This project demonstrates the use of WebSockets, React, and Redux to build a real-time chat application🚀
-
----
 
 ## Key Features
 - 💬 Real-time chat with multiple users
@@ -18,13 +13,9 @@ This project demonstrates the use of WebSockets, React, and Redux to build a rea
 - 📂 Adding, deleting, and renaming channels
 - 🛡️ Message sending with profanity filtering
 
----
-
 ## 🛠️ Requirements
 - **Node.js**: v22.3.0
 - **npm**: v10.8.1
-
----
 
 ## 🚀 Installation and Launch
 1. Install Node.js and npm.
