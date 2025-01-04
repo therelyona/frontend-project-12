@@ -10,6 +10,7 @@ import AuthProvider from './contexts/AuthProvider';
 import store from './store/store';
 import ChatPage from './pages/ChatPage';
 import SignUpPage from './pages/SignUpPage';
+import PrivateRoute from './contexts/PrivateRoute';
 
 const App = () => (
   <BrowserRouter>
@@ -30,7 +31,14 @@ const App = () => (
       <AuthProvider>
         <MainLayout>
           <Routes>
-            <Route path={routes.mainPagePath()} element={<ChatPage />} />
+            <Route
+              path={routes.mainPagePath()}
+              element={(
+                <PrivateRoute>
+                  <ChatPage />
+                </PrivateRoute>
+              )}
+            />
             <Route path={routes.loginPagePath()} element={<LoginPage />} />
             <Route path={routes.signUpPagePath()} element={<SignUpPage />} />
             <Route path="*" element={<NotFoundPage />} />
