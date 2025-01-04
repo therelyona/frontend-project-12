@@ -33,6 +33,5 @@ This project demonstrates the use of WebSockets, React, and Redux to build a rea
     ```
 5. Start the frontend and backend servers:
     ```
-    make start-frontend
     make start
     ```
