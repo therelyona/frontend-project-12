@@ -35,7 +35,6 @@ const MessagesContainer = () => {
             username={username}
             addMessage={addMessage}
             isLoading={isLoading}
-            t={t}
           />
         </div>
       </div>

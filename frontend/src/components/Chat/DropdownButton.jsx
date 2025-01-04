@@ -1,10 +1,12 @@
 import { Dropdown, ButtonGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { activeChannelSelector } from '../../store/slices/activeChannelSlice';
 import useActiveChannel from '../../hooks/useActiveChannel';
 import ChannelItem from './ChannelItem';
 
-const DropdownButton = ({ openModal, channel, t }) => {
+const DropdownButton = ({ openModal, channel }) => {
+  const { t } = useTranslation();
   const activeChannel = useSelector(activeChannelSelector);
   const { activeChannelId } = useActiveChannel(activeChannel);
 
