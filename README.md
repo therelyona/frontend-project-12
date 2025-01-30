@@ -21,11 +21,11 @@ This project demonstrates the use of WebSockets, React, and Redux to build a rea
 1. Install Node.js and npm.
 2. Clone the repository:
    ```
-   git clone git@github.com:therelyona/frontend-project-12.git
+   git clone git@github.com:therelyona/Chat-slack.git
    ```
 3. Navigate to the project folder:
     ```
-    cd frontend-project-12
+    cd Chat-slack
     ```
 4. Install dependencies:
     ```
